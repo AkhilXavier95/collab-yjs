@@ -9,9 +9,9 @@ import "./styles.css";
 
 import * as random from "lib0/random";
 
-const userColor = USER_COLOR[random.uint32() % usercolors.length];
+const userColor = USER_COLOR[random.uint32() % USER_COLOR.length];
 const ydoc = new Y.Doc();
-const provider = new WebrtcProvider("https://ku6ko.csb.app/", ydoc);
+const provider = new WebrtcProvider("my-room-name", ydoc);
 const ytext = ydoc.getText("codemirror");
 const undoManager = new Y.UndoManager(ytext);
 
@@ -21,19 +21,15 @@ provider.awareness.setLocalStateField("user", {
   colorLight: userColor.light
 });
 
-// select a random color for this user
-
 export default function App() {
   return (
-    <>
-      <CodeMirror
-        value=""
-        height="200px"
-        extensions={[
-          javascript({ jsx: true }),
-          yCollab(ytext, provider.awareness, { undoManager })
-        ]}
-      />
-    </>
+    <CodeMirror
+      value=""
+      height="500px"
+      extensions={[
+        javascript({ jsx: true }),
+        yCollab(ytext, provider.awareness, { undoManager })
+      ]}
+    />
   );
 }
